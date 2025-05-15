@@ -1,5 +1,5 @@
 ---
-title: "Post With Code"
+title: "Post With Water"
 author: "Auggie Imuan"
 date: "2024-11-24"
 categories: [news, code, analysis]
@@ -23,7 +23,6 @@ lgas <- strayr::read_absmap(area = "lga", year = 2022) %>%
   filter(state_name_2021 == "New South Wales")
 save(lgas, file="data/lgas.rda")
 ```
-
 
 ```{r}
 load("data/lgas.rda")
