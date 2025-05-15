@@ -1,0 +1,37 @@
+---
+title: "Post With Code"
+author: "Auggie Imuan"
+date: "2024-11-24"
+categories: [news, code, analysis]
+image: "image.jpg"
+---
+
+Hello Guys. I don't have any idea yet.
+
+```{r}
+library(tidyverse)
+library(strayr)
+library(sf)
+
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Create NSW map from strayr 
+lgas <- strayr::read_absmap(area = "lga", year = 2022) %>%
+  filter(state_name_2021 == "New South Wales")
+save(lgas, file="data/lgas.rda")
+```
+
+
+```{r}
+load("data/lgas.rda")
+lgas <- lgas %>% na.omit()
+ggplot(lgas) +
+  geom_sf(fill=NA, colour="grey80",fill = "white")
+```
+
+\$ I Love U \$
+
+\$ I wanna watch K-drama \$
