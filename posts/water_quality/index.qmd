@@ -1,5 +1,5 @@
 ---
-title: "Post With Water"
+title: "Water Quality"
 author: "Auggie Imuan"
 date: "2024-11-24"
 categories: [news, code, analysis]
