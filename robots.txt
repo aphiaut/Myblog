@@ -1,1 +1,1 @@
-Sitemap: https://aphiaut.github.io/Myblog/sitemap.xml
+Sitemap: https://aphiaut.github.io/myblog/sitemap.xml
