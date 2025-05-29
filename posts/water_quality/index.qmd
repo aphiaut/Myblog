@@ -6,31 +6,123 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-Hello Guys. I don't have any idea yet.
-
 ```{r}
+#| echo: false
+#| warning: false
+#| include: false
 library(tidyverse)
 library(strayr)
 library(sf)
-
+library(lubridate)
 ```
 
 ```{r}
 #| eval: false
 #| echo: false
+#| warning: false
+#| include: false
 # Create NSW map from strayr 
 lgas <- strayr::read_absmap(area = "lga", year = 2022) %>%
   filter(state_name_2021 == "New South Wales")
 save(lgas, file="data/lgas.rda")
 ```
 
+# NSW map
+
 ```{r}
+#| echo: false
+#| warning: false
+
+
 load("data/lgas.rda")
 lgas <- lgas %>% na.omit()
-ggplot(lgas) +
+nsw_map <- ggplot(lgas) +
   geom_sf(fill=NA, colour="grey80",fill = "white")
+nsw_map +
+  coord_sf(xlim = c(140.5, 154), ylim = c(-38, -28), expand = FALSE)
 ```
 
-\$ I Love U \$
+## Water Quality at Sydney
 
-\$ I wanna watch K-drama \$
+```{r}
+#| echo: false
+#| warning: false
+#| include: false
+#| 
+water_quality <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-05-20/water_quality.csv')
+weather <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-05-20/weather.csv')
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+# water quality map
+
+nsw_swim <- water_quality %>% 
+  select(swim_site, latitude, longitude)
+
+nsw_map +
+  coord_sf(xlim = c(150, 151.5), ylim = c(-34.2, -33.4), expand = FALSE) +  
+  geom_point(data=nsw_swim, aes(x=longitude,
+                                y=latitude, group=NA),
+             colour="blue", alpha=0.5, size = 0.5)
+```
+
+# Water Quality Heatmap
+
+[Microbial Assessment Category (MAC)](https://www.environment.nsw.gov.au/resources/beach/bwar14/SOB2014HowtoRead.pdf)
+
+```{r}
+#| echo: false
+#| warning: false
+enterococci_rank <- water_quality %>%
+  filter(lubridate::month(date) == 4, lubridate::year(date) == 2024) %>%
+  group_by(council, swim_site) %>%
+  summarise(avg_cfu = mean(enterococci_cfu_100ml, na.rm = TRUE), .groups = "drop") %>%
+  arrange(desc(avg_cfu))
+
+# use enterococci > 40 as it's in categories over B
+
+enterococci_matrix <- enterococci_rank %>%
+  filter(avg_cfu > 40) %>%
+  pivot_wider(
+    names_from = swim_site, 
+    values_from = avg_cfu,
+    values_fill = list(avg_cfu = 0)
+  )
+
+
+rn_matrix <- enterococci_matrix$council
+enterococci_matrix <- as.matrix(enterococci_matrix[,-1])
+rownames(enterococci_matrix) <- rn_matrix
+
+library(heatmaply)
+heatmaply(
+  enterococci_matrix,
+  showticklabels = FALSE,
+  show_dendrogram = FALSE,
+  xlab = "Beach/Swimming location",
+  ylab = "City council",
+  scale_fill_gradient_fun = ggplot2::scale_fill_gradient2(
+    high = "red")
+)
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+library(pheatmap)
+
+pheatmap(
+  enterococci_matrix,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  color = colorRampPalette(c("white", "yellow", "red"))(100),
+  main = "Enterococci CFU > 40 (April 2024)",
+  fontsize_row = 8,
+  fontsize_col = 8
+)
+
+```
