@@ -110,6 +110,8 @@ heatmaply(
 
 ```
 
+
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -126,3 +128,16 @@ pheatmap(
 )
 
 ```
+
+
+```{r}
+clean_enterococci <- water_quality %>% 
+  filter(!is.na(enterococci_cfu_100ml)) 
+max(clean_enterococci$enterococci_cfu_100ml)
+
+ggplot(clean_enterococci %>% 
+         filter(lubridate::year(date) >= 2000)) +
+  geom_point(aes(x = date, y = enterococci_cfu_100ml))
+
+```
+
