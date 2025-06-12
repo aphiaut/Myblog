@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aphiaut.github.io/myblog/posts/Economics/index.html</loc>
-    <lastmod>2025-05-31T05:46:19.888Z</lastmod>
-  </url>
-  <url>
     <loc>https://aphiaut.github.io/myblog/posts/welcome/index.html</loc>
-    <lastmod>2025-05-31T05:46:19.893Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aphiaut.github.io/myblog/about.html</loc>
-    <lastmod>2025-05-31T05:46:19.887Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aphiaut.github.io/myblog/index.html</loc>
-    <lastmod>2025-05-31T05:46:19.887Z</lastmod>
+    <lastmod>2025-06-12T16:41:57.217Z</lastmod>
   </url>
   <url>
     <loc>https://aphiaut.github.io/myblog/posts/water_quality/index.html</loc>
-    <lastmod>2025-05-31T05:46:19.890Z</lastmod>
+    <lastmod>2025-06-12T16:41:57.215Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aphiaut.github.io/myblog/about.html</loc>
+    <lastmod>2025-06-12T16:41:57.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aphiaut.github.io/myblog/index.html</loc>
+    <lastmod>2025-06-12T16:41:57.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aphiaut.github.io/myblog/posts/Economics/index.html</loc>
+    <lastmod>2025-06-12T16:41:57.212Z</lastmod>
   </url>
 </urlset>
